@@ -37,10 +37,6 @@ function change(){
 }(window));
 
 document.getElementById('test1').addEventListener( "click", code.openTest, false );
-document.getElementById('test1').addEventListener( "click", code.openTest, false );
-document.getElementById('test2').addEventListener( "click", code.openTest, false );
 document.getElementById('test2').addEventListener( "click", code.openTest, false );
 document.getElementById('test3').addEventListener( "click", code.openTest, false );
-document.getElementById('test3').addEventListener( "click", code.openTest, false );
-document.getElementById('test4').addEventListener( "click", code.openTest, false );
 document.getElementById('test4').addEventListener( "click", code.openTest, false );

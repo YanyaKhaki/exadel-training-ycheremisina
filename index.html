@@ -4,64 +4,68 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>ПДД</title>
-    <link rel="shortcut icon" href="favicon.png" type="image/png">
+    <link rel="shortcut icon" href="pics/favicon.png" type="image/png">
     <link rel=stylesheet type="text/css" href="css/source/style.less">
 </head>
 
 <body>
 
     <h1>ПДД</h1>
+
     <div class="mainarea">
 
-    <div class="listQ" id="listQ">
+    <div class="listQ">
         <h3>Доступные тесты:</h3>
         <ol>
-            <li id="test1">Проезд перекрёстков</li>
-            <li id="test2">Оказание первой помощи</li>
-            <li id="test3">Дорожные знаки</li>
-            <li id="test4">Административная ответственность</li>
+            <li class="tests" data-test-id="0">Проезд перекрёстков</li>
+            <li class="tests" data-test-id="1">Оказание первой помощи</li>
+            <li class="tests" data-test-id="2">Дорожные знаки</li>
+            <li class="tests" data-test-id="3">Административная ответственность</li>
         </ol>
     </div>
 
-    <!--<a class="button" onclick='toggle("form1");'>Кнопка</a><br><br>-->
+    <div class="question">
+        <h3>Тест такой-то</h3>
+        <p>В каком из ответов правильно указаны права, которые имеет водитель транспортного средства?</p>
+        <ul>
+            <li class="correct">Управлять транспортным средством в установленном порядке</li>
+            <li class="incorrect">Иметь при себе и передавать для проверки сотрудникам ГАИ водительское удостоверение</li>
+            <li class="incorrect">Своевременно предоставлять транспортное средство на государственный технический осмотр</li>
+            <li class="incorrect">Во всех перечисленных</li>
+        </ul><br>
+        <a class="button" class="answer">Ответить</a>
+        <a class="button">Пропустить</a><br><br>
+        <a href="index.html">Вернуться</a>
+    </div>
 
-    <!--<div id='conten'></div>
-
-   <div id='form1' style='display: none'>Текст вопроса<br>
-       <label><input type="radio">1 вариант ответа<br>
-       <input type="radio">2 вариант ответа<br>
-       <input type="radio">3 вариант ответа<br>
-       <input type="radio">4 вариант ответа<br></label>
-   </div>-->
-
-    <div class="question" id="question">
-        <h3>Тест, Вопрос№</h3>
-        <div class="text">
-            <p>blablablablablablablablablablablablablablablablablablablablablablabla</p>
-            <ul id="an">
-                <li id="an1">ответ1</li>
-                <li id="an2">ответ2</li>
-                <li id="an3">ответ3</li>
-                <li id="an4">ответ4</li>
-            </ul><br>
-            <a class="button" onclick='toggle("form1");'>Ответить</a>
-            <a class="button" onclick='toggle("form1");'>Пропустить</a><br><br>
-            <a href="index.html">Вернуться</a>
-        </div>
+    <div class="question2">
+        <h3>Тест такой-то</h3>
+        <div id=""></div>
+        <p>Как следует поступить водителю согласно Правилам, если на дороге с разделительной полосой приближается навстречу транспортное средство оперативного назначения с включенными проблесковыми маячками синего и красного цветов?</p>
+        <ul>
+            <li class="incorrect">Остановиться на обочине, а при ее отсутствии — занять крайнее правое положение в правой полосе движения и остановиться</li>
+            <li class="correct">Продолжать движение</li>
+            <li class="incorrect">Включить аварийную световую сигнализацию</li>
+            <li class="incorrect">Остановиться на полосе движения</li>
+        </ul><br>
+        <a class="button" class="answer">Ответить</a>
+        <a class="button">Пропустить</a><br><br>
+        <a href="index.html">Вернуться</a>
     </div>
 
     <div class="results">
-        <h3>Итог</h3>
+        <h3>Статистика</h3>
         <div>
-            Вопрос №<span id="numb"> 0</span><br>
-            Правильных<span> 0</span><br>
-            Неправильных <span> 0</span>
+            Вопрос №<span class="numb">0</span><br>
+            Правильных <span class="correctAn">0</span><br>
+            Неправильных <span class="incorrectAn">0</span>
         </div>
     </div>
 
     </div>
 
-    <script src="script.js"></script>
+    <script src="scripts/quizzData.js"></script>
+    <script src="scripts/script.js"></script>
 
 </body>
 

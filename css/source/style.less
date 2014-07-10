@@ -8,6 +8,10 @@ body {
 ol {
   text-decoration: underline;
 }
+li:hover {
+  background: #8B8970;
+  border-radius: 3px;
+}
 .mainarea {
   position: relative;
   padding: .8em 1em calc(.8em + 3px);
@@ -16,10 +20,6 @@ ol {
   width: 1000px;
   background-color: #CAFF70;
   box-shadow: 0 0 10px;
-}
-.back {
-  position: absolute;
-  bottom: 0;
 }
 .button {
   font-weight: 700;
@@ -40,14 +40,14 @@ ol {
     box-shadow: 0 3px rgb(33,147,90) inset;
   }
 }
-#listQ,#question{
+.listQ,.question,.question2{
+  margin: 0;
+  padding: 0;
   position: relative;
   float: left;
   width: 750px;
-  margin: 0;
-  padding: 0px;
 }
-.question{
+.question,.question2{
   display: none;
 }
 .results{

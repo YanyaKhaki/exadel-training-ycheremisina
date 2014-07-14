@@ -10,39 +10,42 @@
         var elem2 = document.getElementsByClassName('question')[0];
         elem1.style.display = 'none';
         elem2.style.display = 'block';
+        app.addInfo('testName',quizData[parseInt(evt.target.getAttribute("data-test-id"),10)].title);
+        app.openNextQuest(quizData[parseInt(evt.target.getAttribute("data-test-id"),10)].questions);
+    };
+
+
+    app.openNextQuest = function(elem){
+        app.addInfo('text', elem[0].question);
         numb++;
         app.addInfo('numb',numb);
-
-        console.log(evt.target);
-        console.log(quizData[parseInt(evt.target.getAttribute("data-test-id"),10)])
-
+        if ( elem[0].questionImg != null ) {
+            document.getElementsByClassName('picture')[0].innerHTML = "<img src='"+elem[0].questionImg+"' />";
+        }
+        var newInfo = document.getElementsByClassName('answers');
+        for ( var i = 0; i < newInfo.length; i++ ){
+            console.log(newInfo[i]);
+            document.getElementsByClassName(newInfo[i].className)[i].innerHTML = elem[0].answers[i];
+            if ( elem[0].answers[i] == null ) {
+                newInfo[i].parentNode.removeChild(newInfo[i]);
+            }
+        }
     };
 
-    app.addInfo = function(className,smth){
-        document.getElementsByClassName(className)[0].innerHTML = smth;
-    };
-
-    /*app.check = function(){
-        //if ( $("#myCheck").hasClass("correct") ) {
-        if ( ) {
+    app.check = function(myAnswer){
+        var currentAnsw = quizData[parseInt(myAnswer.target.getAttribute("check-answer-id"),10)].questions[0].right;
+        if ( myAnswer.target.getAttribute("check-answer-id") == currentAnsw - 1 ) {
             correct++;
-            app.addInfo('correctAn', correct);
+            app.addInfo('correctAn',correct);
         }
         else {
             incorrect++;
             app.addInfo('incorrectAn',incorrect);
         }
-
-    };*/
-
-    app.correctAn = function(){
-        correct++;
-        app.addInfo('correctAn',correct);
     };
 
-    app.incorrectAn = function(){
-        incorrect++;
-        app.addInfo('incorrectAn',incorrect);
+    app.addInfo = function(className,info){
+        document.getElementsByClassName(className)[0].innerHTML = info;
     };
 
     root.code = app;
@@ -51,20 +54,15 @@
 
 var tests = document.getElementsByClassName('tests');
 for (var i = 0; i < tests.length; i++) {
-    tests[i].addEventListener("click", code.openTest, false );
+    tests[i].addEventListener( "click", code.openTest, false );
 };
 
-var answer = document.getElementsByClassName('answer');
-for (var i = 0; i < answer.length; i++) {
-    answer[i].addEventListener( "click", code.openTest, false );
+var nextQuest = document.getElementsByClassName('pass');
+for (var i = 0; i < nextQuest.length; i++) {
+    nextQuest[i].addEventListener( "click", code.openNextQuest, false );
 };
 
-var corAns = document.getElementsByClassName('correct');
-for (var i = 0; i < corAns.length; i++) {
-    corAns[i].addEventListener( "click", code.correctAn, false );
-};
-
-var incAns = document.getElementsByClassName('incorrect');
-for (var i = 0; i < incAns.length; i++) {
-    incAns[i].addEventListener( "click", code.incorrectAn, false );
+var someAnswers = document.getElementsByClassName("answers");
+for (var i = 0; i < someAnswers.length; i++) {
+    someAnswers[i].addEventListener( "click", code.check, false );
 };

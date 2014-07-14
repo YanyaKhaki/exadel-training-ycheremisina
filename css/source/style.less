@@ -9,51 +9,54 @@ ol {
   text-decoration: underline;
 }
 li:hover {
-  background: #8B8970;
+  padding: 3px;
+  background: #908e76;
   border-radius: 3px;
+  cursor: pointer;
 }
 .mainarea {
   position: relative;
-  padding: .8em 1em calc(.8em + 3px);
+  padding: 20px;
   border-radius: 3px;
-  height: 400px;
+  min-height: 800px;
   width: 1000px;
   background-color: #CAFF70;
   box-shadow: 0 0 10px;
 }
 .button {
-  font-weight: 700;
+  font-weight: 600;
   color: white;
   text-decoration: none;
-  padding: .8em 1em calc(.8em + 3px);
+  padding: 10px;
   border-radius: 3px;
   background: rgb(64,199,129);
   box-shadow: 0 -3px rgb(53,167,110) inset;
   transition: 0.2s;
 
-  &:hover {
-    background: rgb(53, 167, 110);
+  /*&:hover {
+    background: rgb(3, 167, 220);
+    cursor: pointer;
   }
 
   &:active {
     background: rgb(33,147,90);
     box-shadow: 0 3px rgb(33,147,90) inset;
-  }
+  }*/
 }
-.listQ,.question,.question2{
+.listQ,.question{
   margin: 0;
-  padding: 0;
+  padding: 10px;
   position: relative;
   float: left;
   width: 750px;
 }
-.question,.question2{
+.question{
   display: none;
 }
 .results{
-  position: relative;
+  margin: 10px 10px;
+  padding: 10px 10px 40px;
+  //position: relative;
   float: right;
   width: 150px;
-  margin: 20px 30px 20px 0;
-  padding: 10px;
 }

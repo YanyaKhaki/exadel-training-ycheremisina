@@ -17,18 +17,26 @@
     };
 
     app.openNextQuest = function(elem){
-            app.addInfo('text', elem.question);
+        app.addInfo('text', elem.question);
+            if ( numb > currentTest.length ){
+                numb = indexOfCurrQuest;
+            }
             numb++;
             app.addInfo('currentNumb',numb);
             if ( elem.questionImg != null ) {
                 document.getElementsByClassName('picture')[0].innerHTML = "<img src='"+elem.questionImg+"' />";
+            } else {
+                document.getElementsByClassName('picture')[0].innerHTML = null;
             }
             var newInfo = document.getElementsByClassName('answers');
             for ( var i = 0; i < newInfo.length; i++ ){
                 document.getElementsByClassName(newInfo[i].className)[i].innerHTML = elem.answers[i];
                 if ( elem.answers[i] == null ) {
+                    document.getElementsByClassName(newInfo[i].className)[i].innerHTML = null;
                     newInfo[i].parentNode.removeChild(newInfo[i]);
-                }
+                } /*else {
+                    newInfo[i].parentNode.appendChild(newInfo[i]);
+                }*/
             }
     };
 
@@ -55,34 +63,40 @@
 var indexOfCurrQuest = 0;
 var currentTest = null;
 var mySuperMas = [];
+var alreadyAnswered = 0;
+
+function turningOverMySuperMas() {
+    for (var newIter = 1; newIter < mySuperMas.length+1; newIter++) {
+        indexOfCurrQuest = mySuperMas[mySuperMas.length - newIter];
+        console.log(indexOfCurrQuest);
+        console.log(currentTest[indexOfCurrQuest]);
+        code.openNextQuest(currentTest[indexOfCurrQuest+1]);
+    }
+    mySuperMas = [];
+    console.log(mySuperMas);
+}
 
 function furtherActions(){
-    if(document.getElementsByClassName('numb')[0].innerHTML == indexOfCurrQuest) {
+    if(document.getElementsByClassName('numb')[0].innerHTML == indexOfCurrQuest) { //|| mySuperMas.length == 0
         var cor = parseInt(document.getElementsByClassName('correctAn')[0].innerHTML,10);
         var incor = parseInt(document.getElementsByClassName('incorrectAn')[0].innerHTML);
         if (cor + incor === currentTest.length) {
             if (cor == currentTest.length || cor == currentTest.length - 1) {
                 alert('Йо-хо-хо, вы успешно прошли тест!\n' + cor + ' из ' + currentTest.length + '.\nИдем на главную.');
                 document.location.href = "index.html"
-            } else{
+            } else {
                 alert('Вы не прошли ._.\nРезультат: ' + cor + ' из ' + currentTest.length + '.\nИдем на главную.');
                 document.location.href = "index.html"
             }
         } else {
             if (confirm('Вы пропустили ' + mySuperMas.length + ' вопрос/a/ов. Продолжить выполнение теста?')) {
-                //alert("Погнали");
-                console.log(currentTest[mySuperMas[mySuperMas.length-1]]);
-                code.openNextQuest(currentTest[mySuperMas[mySuperMas.length-1]]);
-                delete mySuperMas[mySuperMas.length-1];
-
-                /*for (var newIter = 0; newIter < mySuperMas.length; newIter++){
-                    code.openNextQuest(currentTest[newIter])
-                }*/
+                turningOverMySuperMas();
+                furtherActions();
             } else {
-                //alert("Идем на главную");
                 document.location.href = "index.html"
             }
         }
+    //return true;
     }
 }
 
@@ -105,9 +119,14 @@ for (var i = 0; i < nextQuest.length; i++) {
 var someAnswers = document.getElementsByClassName("answers");
 for (var iter = 0; iter < someAnswers.length; iter++) {
     someAnswers[iter].addEventListener( "click", function(evt){
+        if (currentTest[indexOfCurrQuest].answered = true) {
+            alreadyAnswered++;
+        }
         code.check(evt);
         indexOfCurrQuest++;
         furtherActions();
+        currentTest[indexOfCurrQuest].answered = true;
+        console.log(alreadyAnswered);
         code.openNextQuest(currentTest[indexOfCurrQuest])
     }, false );
 };

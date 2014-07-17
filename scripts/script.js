@@ -61,7 +61,7 @@ function furtherActions(){
         var cor = parseInt(document.getElementsByClassName('correctAn')[0].innerHTML,10);
         var incor = parseInt(document.getElementsByClassName('incorrectAn')[0].innerHTML);
         if (cor + incor === currentTest.length) {
-            if (cor == incor || cor == incor - 1) {
+            if (cor == currentTest.length || cor == currentTest.length - 1) {
                 alert('Йо-хо-хо, вы успешно прошли тест!\n' + cor + ' из ' + currentTest.length + '.\nИдем на главную.');
                 document.location.href = "index.html"
             } else{
@@ -74,6 +74,7 @@ function furtherActions(){
                 console.log(currentTest[mySuperMas[mySuperMas.length-1]]);
                 code.openNextQuest(currentTest[mySuperMas[mySuperMas.length-1]]);
                 delete mySuperMas[mySuperMas.length-1];
+
                 /*for (var newIter = 0; newIter < mySuperMas.length; newIter++){
                     code.openNextQuest(currentTest[newIter])
                 }*/

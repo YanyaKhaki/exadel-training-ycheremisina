@@ -28,15 +28,13 @@
             } else {
                 document.getElementsByClassName('picture')[0].innerHTML = null;
             }
-            var newInfo = document.getElementsByClassName('answers');
-            for ( var i = 0; i < newInfo.length; i++ ){
-                document.getElementsByClassName(newInfo[i].className)[i].innerHTML = elem.answers[i];
-                if ( elem.answers[i] == null ) {
-                    document.getElementsByClassName(newInfo[i].className)[i].innerHTML = null;
-                    newInfo[i].parentNode.removeChild(newInfo[i]);
-                } /*else {
-                    newInfo[i].parentNode.appendChild(newInfo[i]);
-                }*/
+            for ( var i = 0; i < elem.answers.length; i++ ) {
+                var node = document.createElement('li');
+                var textnode = document.createTextNode(elem.answers[i]);
+                node.setAttribute('class', 'answers');
+                node.setAttribute('check-answer-id', i+1);
+                node.appendChild(textnode);
+                document.getElementById('questList').appendChild(node);
             }
     };
 
@@ -49,6 +47,13 @@
         else {
             incorrect++;
             app.addInfo('incorrectAn',incorrect);
+        }
+    };
+
+    app.deleteQuestList = function() {
+        var element = document.getElementById("questList");
+        while (element.firstChild) {
+            element.removeChild(element.firstChild);
         }
     };
 
@@ -96,7 +101,6 @@ function furtherActions(){
                 document.location.href = "index.html"
             }
         }
-    //return true;
     }
 }
 
@@ -105,20 +109,19 @@ for (var a = 0; a < tests.length; a++) {
     tests[a].addEventListener( "click", code.openTest, false );
 };
 
-var nextQuest = document.getElementsByClassName('button');
-for (var i = 0; i < nextQuest.length; i++) {
-    nextQuest[i].addEventListener( "click", function(){
-        indexOfCurrQuest++;
-        mySuperMas.push(indexOfCurrQuest);
-        console.log(mySuperMas);
-        furtherActions();
-        code.openNextQuest(currentTest[indexOfCurrQuest])
-    }, false );
-};
+var nextQuest = document.getElementById('button');
+nextQuest.addEventListener( "click", function(){
+    indexOfCurrQuest++;
+    mySuperMas.push(indexOfCurrQuest);
+    console.log(mySuperMas);
+    furtherActions();
+    code.deleteQuestList();
+    code.openNextQuest(currentTest[indexOfCurrQuest])
+}, false );
 
-var someAnswers = document.getElementsByClassName("answers");
-for (var iter = 0; iter < someAnswers.length; iter++) {
-    someAnswers[iter].addEventListener( "click", function(evt){
+var someAnswers = document.getElementById('questList');
+someAnswers.addEventListener( "click", function(evt){
+    if (evt.target.className == 'answers') {
         if (currentTest[indexOfCurrQuest].answered = true) {
             alreadyAnswered++;
         }
@@ -127,9 +130,10 @@ for (var iter = 0; iter < someAnswers.length; iter++) {
         furtherActions();
         currentTest[indexOfCurrQuest].answered = true;
         console.log(alreadyAnswered);
+        code.deleteQuestList();
         code.openNextQuest(currentTest[indexOfCurrQuest])
-    }, false );
-};
+    }
+}, false );
 
 /*delete indexOfCurrQuest;
 delete currentTest;

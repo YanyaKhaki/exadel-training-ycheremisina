@@ -12,46 +12,44 @@
 
     <h1>ПДД</h1>
 
-    <div class="mainarea">
+        <div class="mainarea">
 
-    <div class="listQ">
-        <h3>Доступные тесты:</h3>
-        <ol>
-            <li class="tests" data-test-id="0">Зачет по теме №1</li>
-            <li class="tests" data-test-id="1">Зачет по теме №2</li>
-            <li class="tests" data-test-id="2">Зачет по теме №3</li>
-            <li class="tests" data-test-id="3">Зачет по теме №4</li>
-            <li class="tests" data-test-id="4">Зачет по теме №5</li>
-            <li class="tests" data-test-id="5">Зачет по теме №6</li>
-            <li class="tests" data-test-id="6">Зачет по теме №7</li>
-        </ol>
-    </div>
+            <div class="listQ">
+                <h3>Доступные тесты:</h3>
+                <ol>
+                    <li class="tests" data-test-id="0">Зачет по теме №1</li>
+                    <li class="tests" data-test-id="1">Зачет по теме №2</li>
+                    <li class="tests" data-test-id="2">Зачет по теме №3</li>
+                    <li class="tests" data-test-id="3">Зачет по теме №4</li>
+                    <li class="tests" data-test-id="4">Зачет по теме №5</li>
+                    <li class="tests" data-test-id="5">Зачет по теме №6</li>
+                    <li class="tests" data-test-id="6">Зачет по теме №7</li>
+                </ol>
+            </div>
 
-    <div class="question">
-        <h3 class="testName">Название теста</h3>
-        <p class="text">Вопрос-вопрос-вопрос?</p>
-        <div class="picture"></div>
-        <ul>
-            <li class="answers" check-answer-id="1">Ответ 1</li>
-            <li class="answers" check-answer-id="2">Ответ 2</li>
-            <li class="answers" check-answer-id="3">Ответ 3</li>
-            <li class="answers" check-answer-id="4">Ответ 4</li>
-        </ul><br>
-        <!--<span id="triangle-left"></span>-->
-        <a class="button">Пропустить</a><br><br>
-        <a href="index.html">На главную</a>
-    </div>
+            <div class="question">
+                <h3 class="testName">Название теста</h3>
+                <p class="text">Вопрос-вопрос-вопрос?</p>
+                <div class="picture"></div>
 
-    <div class="results button">
-        <h3>Статистика</h3>
-        <div>
-            Вопрос №<span class="currentNumb">0</span>/<span class="numb">0</span><br>
-            Правильных <span class="correctAn">0</span><br>
-            Неправильных <span class="incorrectAn">0</span>
+                <ul id="questList">
+                </ul><br>
+
+                <!--<span id="triangle-left"></span>-->
+                <a id='button' class="button">Пропустить</a><br><br>
+                <a href="index.html">На главную</a>
+            </div>
+
+            <div class="results button">
+                <h3>Статистика</h3>
+                <div>
+                    Вопрос №<span class="currentNumb">0</span>/<span class="numb">0</span><br>
+                    Правильных <span class="correctAn">0</span><br>
+                    Неправильных <span class="incorrectAn">0</span>
+                </div>
+            </div>
+
         </div>
-    </div>
-
-    </div>
 
     <script src="scripts/new-quizz-data.json"></script>
     <script src="scripts/script.js"></script>

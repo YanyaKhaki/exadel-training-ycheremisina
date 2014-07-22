@@ -1,9 +1,11 @@
 body {
   margin: 20px;
   padding: 0;
-  font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
   background-color: #FFFFE0;
-  font-size: 15px;
+  font-size: 19px;
+}
+h1 {
+  text-align: center;
 }
 ol {
   text-decoration: underline;
@@ -18,113 +20,77 @@ a:hover {
   cursor: pointer;
 }
 .mainarea {
-  width: 910px;
+  width: 1260px;
   min-height: 650px;
   padding: 20px;
   background-color: #CAFF70;
   position: relative;
   border-radius: 3px;
-  //min-height: 650px;
   box-shadow: 0 0 10px #908e76;
 }
-.button {
+.greenTheme {
   font-weight: 600;
   color: white;
   text-decoration: none;
   padding: 10px;
   border-radius: 3px;
-  background: rgb(64,199,129);
-  box-shadow: 0 -3px rgb(53,167,110) inset;
-  transition: 0.2s;
-
-  /*&:hover {
-    background-color: rgb(220, 26, 21);
-    cursor: pointer;
-  }
-
-  &:active {
-    background: rgb(33,147,90);
-    box-shadow: 0 3px rgb(33,147,90) inset;
-  }*/
-}
-#triangle-left {
-  width: 0;
-  height: 0;
-  border-top: 20px solid transparent;
-  border-right: 50px solid #fffb48;
-  border-bottom: 20px solid transparent;
+  background: #40C781;
+  box-shadow: 0 -3px #35A76E inset;
 }
 .listQ,.question{
   margin: 0;
   padding: 10px;
   position: relative;
   float: left;
-  width: 700px;
+  width: 1030px;
 }
 .question{
   display: none;
 }
 .results{
+  .greenTheme;
   margin: 10px 10px;
   padding: 10px 10px 40px;
-  //position: relative;
+  position: relative;
   float: right;
-  width: 150px;
+  width: 160px;
 }
-/*#modalContainer {
-  background-color:transparent;
-  position:absolute;
-  width:100%;
-  height:100%;
-  top:0px;
-  left:0px;
-  z-index:10000;
-  background-image:url(tp.png); /* required by MSIE to prevent actions on lower z-index elements */
-}
-
-#alertBox {
+a.tt{
   position:relative;
-  width:300px;
-  min-height:100px;
-  margin-top:50px;
-  border:2px solid #000;
-  background-color:#F2F5F6;
-  background-image:url(alert.png);
-  background-repeat:no-repeat;
-  background-position:20px 30px;
-}
-
-#modalContainer > #alertBox {
-  position:fixed;
-}
-
-#alertBox h1 {
-  margin:0;
-  font:bold 0.9em verdana,arial;
-  background-color:#78919B;
-  color:#FFF;
-  border-bottom:1px solid #000;
-  padding:2px 0 2px 5px;
-}
-
-#alertBox p {
-  font:0.7em verdana,arial;
-  height:50px;
-  padding-left:5px;
-  margin-left:55px;
-}
-
-#alertBox #closeBtn {
-  display:block;
-  position:relative;
-  margin:5px auto;
-  padding:3px;
-  border:2px solid #000;
-  width:70px;
-  font:0.7em verdana,arial;
-  text-transform:uppercase;
-  text-align:center;
-  color:#FFF;
-  background-color:#78919B;
+  z-index:24;
+  color: #908e76;
+  font-weight:bold;
   text-decoration:none;
-}*/
+}
+a.tt span{
+  display: none;
+}
+a.tt:hover{
+  z-index:25; color: #908e76;
+}
+a.tt:hover span.tooltip{
+  display:block;
+  position:absolute;
+  top:0px; left:0;
+  padding: 15px 0 0 0;
+  width:200px;
+  color: #908e76;
+  text-align: center;
+  opacity: 0.90;
+}
+a.tt:hover span.top{
+  display: block;
+  padding: 30px 8px 0;
+  background: url(../../pics/bubble.gif) no-repeat top;
+}
+a.tt:hover span.middle{
+  display: block;
+  padding: 0 8px;
+  background: url(../../pics/bubble_filler.gif) repeat bottom;
+}
+a.tt:hover span.bottom{
+  display: block;
+  padding:3px 8px 10px;
+  color: #908e76;
+  background: url(../../pics/bubble.gif) no-repeat bottom;
+}

@@ -1,5 +1,14 @@
 (function(root){
 
+    /*function QuizzApp(){
+
+        this.qurrentQuestionIndex = 0;
+        this.currentTestIndex = 0;
+
+    }
+
+    QuizzApp.prototype.getNextQuestionIndex = function()*/
+
     var app = {};
     var numb = 0;
     var correct = 0;
@@ -71,12 +80,40 @@ var indexOfCurrQuest = 0;
 var currentTest = null;
 var alreadyAnswered = 0;
 
+function buttonError() {
+    //debugger;
+    buttonErr = document.getElementById('button');
+    buttonErr.setAttribute('href', '#');
+    buttonErr.className += 'tt';
+
+    spanMain = document.createElement('span');
+    spanMain.setAttribute('class', 'tooltip');
+    document.getElementsByClassName('tt')[0].appendChild(spanMain);
+
+    span1 = document.createElement('span');
+    span1.setAttribute('class', 'top');
+    document.getElementsByClassName('tooltip')[0].appendChild(span1);
+
+    span2 = document.createElement('span');
+    span2.setAttribute('class', 'middle');
+    document.getElementsByClassName('tooltip')[0].appendChild(span2);
+    textError = document.createTextNode('Вы не можете пропустить этот вопрос');
+    document.getElementsByClassName('middle')[0].appendChild(textError);
+
+    span3 = document.createElement('span');
+    span3.setAttribute('class', 'bottom');
+    document.getElementsByClassName('tooltip')[0].appendChild(span3);
+}
+
 function openingRemainingData() {
     console.log(alreadyAnswered, currentTest.length, 'текущий в массиве:', indexOfCurrQuest);
     var flag = false;
     if (alreadyAnswered == currentTest.length) {
         showTheResults()
     } else {
+        if (alreadyAnswered == currentTest.length - 1) {
+            buttonError();
+        }
         if (currentTest.length == indexOfCurrQuest) {
             for (var newSuperIndex = 0; newSuperIndex < currentTest.length; newSuperIndex++) {
                 if (!currentTest[newSuperIndex].answered) {

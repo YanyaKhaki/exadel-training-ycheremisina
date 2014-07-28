@@ -1,7 +1,8 @@
-(function(root){
+(function(root) {
 
-    function QuizzApp(){
+    function QuizzApp() {
         this.currentQuestIndex = 0;
+        this.currentTestIndex = 0;
         this.currentTest = 0;
         this.alreadyAnswered = 0;
         this.correct = 0;
@@ -9,68 +10,69 @@
         this.alreadyDone = [];
     }
 
-    QuizzApp.prototype.openTest = function(evt) {
+    QuizzApp.prototype.openTest = function (evt) {
         var elem1 = document.getElementsByClassName('listQ')[0];
         var elem2 = document.getElementsByClassName('question')[0];
         elem1.style.display = 'none';
         elem2.style.display = 'block';
-        this.alreadyDone.push(evt.target.getAttribute("data-test-id"));
-        console.log(this.alreadyDone);
-        this.addInfo('testName',quizData[parseInt(evt.target.getAttribute("data-test-id"),10)].title);
-        this.currentTest = quizData[parseInt(evt.target.getAttribute("data-test-id"),10)].questions;
-        this.addInfo('numb',this.currentTest.length);
+        this.currentTestIndex = parseInt(evt.target.getAttribute("data-test-id"), 10);
+        this.addInfo('testName', quizData[parseInt(evt.target.getAttribute("data-test-id"), 10)].title);
+        this.currentTest = quizData[parseInt(evt.target.getAttribute("data-test-id"), 10)].questions;
+        this.addInfo('numb', this.currentTest.length);
         this.openNextQuest(this.currentTest[0])
     };
 
-    QuizzApp.prototype.openNextQuest = function(elem){
+    QuizzApp.prototype.openNextQuest = function (elem) {
         //название теста
         this.addInfo('text', elem.question);
         //номер текущего вопроса
         numb = this.currentQuestIndex;
         numb++;
-        this.addInfo('currentNumb',numb);
+        this.addInfo('currentNumb', numb);
         //картинка
-        if ( elem.questionImg != null ) {
-            document.getElementsByClassName('picture')[0].innerHTML = "<img src='"+elem.questionImg+"' />"
+        if (elem.questionImg != null) {
+            document.getElementsByClassName('picture')[0].innerHTML = "<img src='" + elem.questionImg + "' />"
         } else {
             document.getElementsByClassName('picture')[0].innerHTML = null
         }
         //ответы
-        for ( var i = 0; i < elem.answers.length; i++ ) {
+        for (var i = 0; i < elem.answers.length; i++) {
             var node = document.createElement('li');
             var textnode = document.createTextNode(elem.answers[i]);
             node.setAttribute('class', 'answers');
-            node.setAttribute('check-answer-id', i+1);
+            node.setAttribute('check-answer-id', i + 1);
             node.appendChild(textnode);
             document.getElementById('questList').appendChild(node)
         }
-        this.Persist.getStatistics(this.currentQuestIndex, this.currentTest, this.alreadyAnswered, this.incorrect, this.incorrect, this.alreadyDone);
+        this.Router.getStats(this.currentTestIndex, this.currentQuestIndex);
+        this.Router.createURL();
+        this.Persist.getStatistics(this.currentTestIndex, this.currentQuestIndex, this.alreadyAnswered, this.correct, this.incorrect, this.alreadyDone);
     };
 
-    QuizzApp.prototype.check = function(myAnswer){
+    QuizzApp.prototype.check = function (myAnswer) {
         var currentCorrectAnsw = this.currentTest[this.currentQuestIndex].right;
-        if ( myAnswer.target.getAttribute("check-answer-id") == currentCorrectAnsw ) {
+        if (myAnswer.target.getAttribute("check-answer-id") == currentCorrectAnsw) {
             this.correct++;
-            this.addInfo('correctAn',this.correct)
+            this.addInfo('correctAn', this.correct)
         }
         else {
             this.incorrect++;
-            this.addInfo('incorrectAn',this.incorrect)
+            this.addInfo('incorrectAn', this.incorrect)
         }
     };
 
-    QuizzApp.prototype.deleteQuestList = function() {
+    QuizzApp.prototype.deleteQuestList = function () {
         var element = document.getElementById("questList");
         while (element.firstChild) {
             element.removeChild(element.firstChild)
         }
     };
 
-    QuizzApp.prototype.addInfo = function(className,info){
+    QuizzApp.prototype.addInfo = function (className, info) {
         document.getElementsByClassName(className)[0].innerHTML = info
     };
 
-    QuizzApp.prototype.openRemainingData = function() {
+    QuizzApp.prototype.openRemainingData = function () {
         var flag = false;
         if (this.alreadyAnswered == this.currentTest.length) {
             this.showTheResults()
@@ -107,21 +109,32 @@
         }
     };
 
-    QuizzApp.prototype.showTheResults = function() {
+    QuizzApp.prototype.showTheResults = function () {
+        this.alreadyDone.push(this.currentTestIndex + 1);
+        this.Persist.getStatistics(this.currentTestIndex, this.currentQuestIndex, this.alreadyAnswered, this.correct, this.incorrect, this.alreadyDone);
         var cor = document.getElementsByClassName('correctAn')[0].innerHTML;
         if (cor == this.currentTest.length || cor == this.currentTest.length - 1) {
             alert('Йо-хо-хо, вы успешно прошли тест!\n' + cor + ' из ' + this.currentTest.length + '.\nИдем на главную.');
-            root.location.href = "index.html";
-            for (var n = 0; n < this.alreadyDone.length; n++) {
-                document.getElementsByClassName('tests')[this.alreadyDone[n]].innerHTML += '&nbsp;&otimes';
-            }
         } else {
-            alert('Вы не прошли ._.\nРезультат: ' + cor + ' из ' + this.currentTest.length + '.\nИдем на главную.');
-            root.location.href = "index.html";
-            for (var n = 0; n < this.alreadyDone.length; n++) {
-                document.getElementsByClassName('tests')[this.alreadyDone[n]].innerHTML += '&nbsp;&otimes';
-            }
+        alert('Вы не прошли ._.\nРезультат: ' + cor + ' из ' + this.currentTest.length + '.\nИдем на главную.');
         }
+        var elem1 = document.getElementsByClassName('question')[0];
+        var elem2 = document.getElementsByClassName('listQ')[0];
+        elem1.style.display = 'none';
+        elem2.style.display = 'block';
+        document.getElementsByClassName('tests')[this.alreadyDone[this.alreadyDone.length-1]-1].innerHTML += '&nbsp;&#9746;';
+        this.currentQuestIndex = 0;
+        this.currentTestIndex = 0;
+        this.currentTest = 0;
+        this.alreadyAnswered = 0;
+        this.correct = 0;
+        this.incorrect = 0;
+        this.Router.cleanURL();
+        this.Persist.getStatistics(this.currentTestIndex, this.currentQuestIndex, this.alreadyAnswered, this.correct, this.incorrect, this.alreadyDone);
+        this.addInfo('correctAn', this.correct);
+        this.addInfo('incorrectAn', this.incorrect);
+        this.addInfo('currentNumb', this.currentQuestIndex);
+        this.addInfo('numb','0');
     };
 
     QuizzApp.prototype.init = function(){
@@ -145,7 +158,7 @@
         }, false);
 
         this.Persist = new PersistanceModule();
-
+        this.Router = new Router();
     };
 
     root.QuizzApp = QuizzApp;

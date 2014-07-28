@@ -1,46 +1,41 @@
 body {
   margin: 20px;
   padding: 0;
-  font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
   background-color: #FFFFE0;
-  font-size: 17px;
+  font-size: 19px;
+}
+h1 {
+  text-align: center;
 }
 ol {
   text-decoration: underline;
 }
 li:hover {
-  padding: 3px;
+  padding: 0px;
   background: #908e76;
   border-radius: 3px;
   cursor: pointer;
 }
-.mainarea {
-  position: relative;
-  padding: 20px;
-  border-radius: 3px;
-  min-height: 800px;
-  width: 1000px;
-  background-color: #CAFF70;
-  box-shadow: 0 0 10px;
+a:hover {
+  cursor: pointer;
 }
-.button {
+.mainarea {
+  width: 1260px;
+  min-height: 650px;
+  padding: 20px;
+  background-color: #CAFF70;
+  position: relative;
+  border-radius: 3px;
+  box-shadow: 0 0 10px #908e76;
+}
+.greenTheme {
   font-weight: 600;
   color: white;
   text-decoration: none;
   padding: 10px;
   border-radius: 3px;
-  background: #40c781;
+  background: #40C781;
   box-shadow: 0 -3px #35a76e inset;
-  transition: 0.2s;
-  /*&:hover {
-    background: rgb(3, 167, 220);
-    cursor: pointer;
-  }
-
-  &:active {
-    background: rgb(33,147,90);
-    box-shadow: 0 3px rgb(33,147,90) inset;
-  }*/
 }
 .listQ,
 .question {
@@ -48,14 +43,63 @@ li:hover {
   padding: 10px;
   position: relative;
   float: left;
-  width: 750px;
+  width: 1030px;
 }
 .question {
   display: none;
 }
 .results {
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 3px;
+  background: #40C781;
+  box-shadow: 0 -3px #35a76e inset;
   margin: 10px 10px;
   padding: 10px 10px 40px;
+  position: relative;
   float: right;
-  width: 150px;
+  width: 160px;
+}
+a.tt {
+  position: relative;
+  z-index: 24;
+  color: #908e76;
+  font-weight: bold;
+  text-decoration: none;
+}
+a.tt span {
+  display: none;
+}
+a.tt:hover {
+  z-index: 25;
+  color: #908e76;
+}
+a.tt:hover span.tooltip {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  padding: 15px 0 0 0;
+  width: 200px;
+  color: #908e76;
+  text-align: center;
+  opacity: 0.90;
+}
+a.tt:hover span.top {
+  display: block;
+  padding: 30px 8px 0;
+  background: url(../../pics/bubble.gif) no-repeat top;
+}
+a.tt:hover span.middle {
+  display: block;
+  padding: 0 8px;
+  background: url(../../pics/bubble_filler.gif) repeat bottom;
+}
+a.tt:hover span.bottom {
+  display: block;
+  padding: 3px 8px 10px;
+  color: #908e76;
+  background: url(../../pics/bubble.gif) no-repeat bottom;
 }

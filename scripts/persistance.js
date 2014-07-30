@@ -1,16 +1,17 @@
 (function (root) {
 
     function PersistanceModule() {
-        this.currQuestIndex = 0;
         this.currTestIndex = 0;
+        this.currQuestIndex = 0;
         this.alrAnswered = 0;
         this.corr = 0;
         this.incorr = 0;
+        this.alrDone = [];
     }
 
-    PersistanceModule.prototype.getStatistics = function(currQuestIndex, currTest, alrAnswered, corr, incorr, alrDone){
+    PersistanceModule.prototype.getStatistics = function(currTestIndex, currQuestIndex, alrAnswered, corr, incorr, alrDone){
+        this.currTestIndex = currTestIndex + 1;
         this.currQuestIndex = currQuestIndex + 1;
-        this.currTest = currTest;
         this.alrAnswered = alrAnswered;
         this.corr = corr;
         this.incorr = incorr;
@@ -20,8 +21,8 @@
 
     PersistanceModule.prototype.getFromLocalStorage = function() {
         var myStat = JSON.parse(localStorage.getItem('myQuiz'));
+        this.currTestIndex = myStat.currTestIndex;
         this.currQuestIndex = myStat.currQuestIndex;
-        this.currTest = myStat.currTest;
         this.alrAnswered = myStat.alrAnswered;
         this.corr = myStat.corr;
         this.incorr = myStat.incorr;

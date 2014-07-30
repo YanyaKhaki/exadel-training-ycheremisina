@@ -1,41 +1,72 @@
 body {
   margin: 20px;
   padding: 0;
-  background-color: #FFFFE0;
+  background-color: #b9b697;
   font-size: 19px;
 }
 h1 {
-  text-align: center;
+  text-align: left;
 }
 ol {
-  text-decoration: underline;
+  list-style-image: url(../../pics/square.png);
+}
+.picture {
+  text-align: center;
+}
+/*.recolour(@col) {
+  background-color: @col;
+}*/
+.superBorder (@color) {
+  border: 1px solid @color;
+  border-radius: 3px;
+  list-style: none;
+  padding: 10px;
+}
+.text {
+  .superBorder(black);
+}
+#questList > li {
+  .superBorder(white);
+  margin: 0px 0px 0px -40px;
 }
 li:hover {
   padding: 0px;
-  background: #908e76;
   border-radius: 3px;
+  background-color: #fbff4f;
   cursor: pointer;
+  vertical-align: middle;
 }
 a:hover {
   cursor: pointer;
 }
 .mainarea {
   width: 1260px;
-  min-height: 650px;
+  min-height: 690px;
   padding: 20px;
   background-color: #CAFF70;
   position: relative;
   border-radius: 3px;
-  box-shadow: 0 0 10px #908e76;
+  box-shadow: 10px 10px 10px #908e76;
 }
-.greenTheme {
+.brownTheme {
   font-weight: 600;
   color: white;
   text-decoration: none;
   padding: 10px;
   border-radius: 3px;
-  background: #40C781;
-  box-shadow: 0 -3px #35A76E inset;
+  background: #908e76;
+  box-shadow: 10px 10px 10px #a19e83 outset;
+}
+.results{
+  .brownTheme;
+  text-align: center;
+  padding: 10px 10px 50px;
+  position: relative;
+  float: right;
+  width: 160px;
+}
+.results h3 {
+  color: black;
 }
 .listQ,.question{
   margin: 0;
@@ -46,51 +77,4 @@ a:hover {
 }
 .question{
   display: none;
-}
-.results{
-  .greenTheme;
-  margin: 10px 10px;
-  padding: 10px 10px 40px;
-  position: relative;
-  float: right;
-  width: 160px;
-}
-a.tt{
-  position:relative;
-  z-index:24;
-  color: #908e76;
-  font-weight:bold;
-  text-decoration:none;
-}
-a.tt span{
-  display: none;
-}
-a.tt:hover{
-  z-index:25; color: #908e76;
-}
-a.tt:hover span.tooltip{
-  display:block;
-  position:absolute;
-  top:0px; left:0;
-  padding: 15px 0 0 0;
-  width:200px;
-  color: #908e76;
-  text-align: center;
-  opacity: 0.90;
-}
-a.tt:hover span.top{
-  display: block;
-  padding: 30px 8px 0;
-  background: url(../../pics/bubble.gif) no-repeat top;
-}
-a.tt:hover span.middle{
-  display: block;
-  padding: 0 8px;
-  background: url(../../pics/bubble_filler.gif) repeat bottom;
-}
-a.tt:hover span.bottom{
-  display: block;
-  padding:3px 8px 10px;
-  color: #908e76;
-  background: url(../../pics/bubble.gif) no-repeat bottom;
 }

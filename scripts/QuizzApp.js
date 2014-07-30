@@ -11,15 +11,21 @@
     }
 
     QuizzApp.prototype.openTest = function (evt) {
-        var elem1 = document.getElementsByClassName('listQ')[0];
-        var elem2 = document.getElementsByClassName('question')[0];
-        elem1.style.display = 'none';
-        elem2.style.display = 'block';
-        this.currentTestIndex = parseInt(evt.target.getAttribute("data-test-id"), 10);
-        this.addInfo('testName', quizData[parseInt(evt.target.getAttribute("data-test-id"), 10)].title);
-        this.currentTest = quizData[parseInt(evt.target.getAttribute("data-test-id"), 10)].questions;
-        this.addInfo('numb', this.currentTest.length);
-        this.openNextQuest(this.currentTest[0])
+        this.myRouter.cleanURL();
+        if (this.alreadyDone.length === quizData.length) {
+            alert('Вы прошли все тесты')
+        }
+        if (parseInt(evt.target.getAttribute("data-test-id"), 10) > -1) {
+            var elem1 = document.getElementsByClassName('listQ')[0];
+            var elem2 = document.getElementsByClassName('question')[0];
+            elem1.style.display = 'none';
+            elem2.style.display = 'block';
+            this.currentTestIndex = parseInt(evt.target.getAttribute("data-test-id"), 10);
+            this.addInfo('testName', quizData[parseInt(evt.target.getAttribute("data-test-id"), 10)].title);
+            this.currentTest = quizData[parseInt(evt.target.getAttribute("data-test-id"), 10)].questions;
+            this.addInfo('numb', this.currentTest.length);
+            this.openNextQuest(this.currentTest[0])
+        }
     };
 
     QuizzApp.prototype.openNextQuest = function (elem) {
@@ -44,8 +50,8 @@
             node.appendChild(textnode);
             document.getElementById('questList').appendChild(node)
         }
-        this.Router.getStats(this.currentTestIndex, this.currentQuestIndex);
-        this.Router.createURL();
+        this.myRouter.getStats(this.currentTestIndex, this.currentQuestIndex);
+        this.myRouter.createURL();
         this.Persist.getStatistics(this.currentTestIndex, this.currentQuestIndex, this.alreadyAnswered, this.correct, this.incorrect, this.alreadyDone);
     };
 
@@ -53,11 +59,15 @@
         var currentCorrectAnsw = this.currentTest[this.currentQuestIndex].right;
         if (myAnswer.target.getAttribute("check-answer-id") == currentCorrectAnsw) {
             this.correct++;
-            this.addInfo('correctAn', this.correct)
+            this.addInfo('correctAn', this.correct);
+            myAnswer.target.style.backgroundColor = 'green';
+            alert('Верно!:)')
         }
         else {
             this.incorrect++;
-            this.addInfo('incorrectAn', this.incorrect)
+            this.addInfo('incorrectAn', this.incorrect);
+            myAnswer.target.style.backgroundColor = 'red';
+            alert("Неверно. Правильный ответ: '"+this.currentTest[this.currentQuestIndex].answers[currentCorrectAnsw-1]+"'")
         }
     };
 
@@ -122,15 +132,16 @@
         var elem2 = document.getElementsByClassName('listQ')[0];
         elem1.style.display = 'none';
         elem2.style.display = 'block';
-        document.getElementsByClassName('tests')[this.alreadyDone[this.alreadyDone.length-1]-1].innerHTML += '&nbsp;&#9746;';
+        document.getElementsByClassName('tests')[this.alreadyDone[this.alreadyDone.length-1]-1].style.listStyleImage = 'url(pics/tick.png)';
+        document.getElementsByClassName('tests')[this.alreadyDone[this.alreadyDone.length-1]-1].setAttribute('data-test-id', '-1');
         this.currentQuestIndex = 0;
         this.currentTestIndex = 0;
         this.currentTest = 0;
         this.alreadyAnswered = 0;
         this.correct = 0;
         this.incorrect = 0;
-        this.Router.cleanURL();
-        this.Persist.getStatistics(this.currentTestIndex, this.currentQuestIndex, this.alreadyAnswered, this.correct, this.incorrect, this.alreadyDone);
+        this.myRouter.cleanURL();
+        this.Persist.cleanStatistics();
         this.addInfo('correctAn', this.correct);
         this.addInfo('incorrectAn', this.incorrect);
         this.addInfo('currentNumb', this.currentQuestIndex);
@@ -138,11 +149,16 @@
     };
 
     QuizzApp.prototype.init = function(){
-
+        this.Persist = new PersistanceModule();
+        this.myRouter = new Router(this);
+        console.log(this.myRouter);
         var self = this,
             tests = document.getElementsByClassName('tests'),
             nextQuest = document.getElementById('button'),
-            someAnswers = document.getElementById('questList');
+            someAnswers = document.getElementById('questList'),
+            goBack = document.getElementById('back');
+
+        root.addEventListener("hashchange", self.myRouter.onURLChange(), false);
 
         for (var a = 0; a < tests.length; a++) {
             tests[a].addEventListener("click", function (evt) { self.openTest(evt); }, false)
@@ -153,12 +169,16 @@
                 self.check(evt);
                 self.currentTest[self.currentQuestIndex].answered = true;
                 self.alreadyAnswered++;
-                self.openRemainingData();
+                self.openRemainingData()
             }
         }, false);
+        //this.myRouter.reloadPage();
+        //this.myRouter.onURLChange();
+        goBack.addEventListener("click", function() {
+            self.myRouter.cleanURL();
+            self.Persist.cleanStatistics()
+        }, false);
 
-        this.Persist = new PersistanceModule();
-        this.Router = new Router();
     };
 
     root.QuizzApp = QuizzApp;

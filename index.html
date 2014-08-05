@@ -11,52 +11,59 @@
 
 <body>
 
-    <!--<h1>ПДД</h1>-->
+<div class="mainarea">
 
-        <div class="mainarea">
+    <div class="listQ">
+        <h3>Доступные тесты:</h3>
+        <ol class="testList">
+            <li class="tests" data-test-id="0">Зачет по теме №1</li>
+            <li class="tests" data-test-id="1">Зачет по теме №2</li>
+            <li class="tests" data-test-id="2">Зачет по теме №3</li>
+            <li class="tests" data-test-id="3">Зачет по теме №4</li>
+            <li class="tests" data-test-id="4">Зачет по теме №5</li>
+            <li class="tests" data-test-id="5">Зачет по теме №6</li>
+            <li class="tests" data-test-id="6">Зачет по теме №7</li>
+        </ol>
+    </div>
 
-            <div class="listQ">
-                <h3>Доступные тесты:</h3>
-                <ol>
-                    <li class="tests" data-test-id="0">Зачет по теме №1</li>
-                    <li class="tests" data-test-id="1">Зачет по теме №2</li>
-                    <li class="tests" data-test-id="2">Зачет по теме №3</li>
-                    <li class="tests" data-test-id="3">Зачет по теме №4</li>
-                    <li class="tests" data-test-id="4">Зачет по теме №5</li>
-                    <li class="tests" data-test-id="5">Зачет по теме №6</li>
-                    <li class="tests" data-test-id="6">Зачет по теме №7</li>
-                </ol>
-            </div>
+    <div class="question">
+        <h3 class="testName">Название теста</h3>
+        <p class="text">Вопрос-вопрос-вопрос?</p>
+        <div class="picture"></div>
 
-            <div class="question">
-                <h3 class="testName">Название теста</h3>
-                <p class="text">Вопрос-вопрос-вопрос?</p>
-                <div class="picture"></div>
+        <ul class="answersList" id="questList">
+        </ul><br>
 
-                <ul id="questList">
-                </ul><br>
+        <a href="index.html" id='back' class="brownTheme back">На главную</a>
+        <a id="button" class="brownTheme skip">Пропустить</a>
 
-                <a href="index.html" id='back' class="brownTheme">На главную</a>
-                <a id="button" class="brownTheme">Пропустить</a>
+    </div>
 
-            </div>
-
-            <div class="results">
-                <h3>Статистика</h3>
-                <div>
-                    Вопрос №<span class="currentNumb">0</span>/<span class="numb">0</span><br>
-                    Правильных <span class="correctAn">0</span><br>
-                    Неправильных <span class="incorrectAn">0</span>
-                </div>
-            </div>
-
+    <div class="results">
+        <h3>Статистика</h3>
+        <div>
+            Вопрос №<span class="currentNumb">0</span>/<span class="numb">0</span><br>
+            Правильных <span class="correctAn">0</span><br>
+            Неправильных <span class="incorrectAn">0</span>
         </div>
+    </div>
 
-    <script src="scripts/new-quizz-data.json"></script>
-    <script src="scripts/QuizzApp.js"></script>
-    <script src="scripts/init.js"></script>
-    <script src="scripts/persistance.js"></script>
-    <script src="scripts/routing.js"></script>
+</div>
+
+<div></div>
+
+<script src="libraries/underscore.js"></script>
+<script src="libraries/jquery-1.11.1.min.js"></script>
+<script src="libraries/bootstrap/js/bootstrap.js"></script>
+
+
+<script src="scripts/new-quizz-data.js"></script>
+<script src="scripts/QuizzModule.js"></script>
+<script src="scripts/stats.js"></script>
+<script src="scripts/QuizzApp.js"></script>
+<script src="scripts/init.js"></script>
+<script src="scripts/persistance.js"></script>
+<script src="scripts/routing.js"></script>
 
 </body>
 

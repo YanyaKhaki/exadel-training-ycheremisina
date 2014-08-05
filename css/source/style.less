@@ -10,9 +10,6 @@ h1 {
 ol {
   list-style-image: url(../../pics/square.png);
 }
-.picture {
-  text-align: center;
-}
 /*.recolour(@col) {
   background-color: @col;
 }*/
@@ -41,40 +38,48 @@ a:hover {
 }
 .mainarea {
   width: 1260px;
-  min-height: 690px;
   padding: 20px;
   background-color: #CAFF70;
-  position: relative;
   border-radius: 3px;
   box-shadow: 10px 10px 10px #908e76;
 }
-.brownTheme {
-  font-weight: 600;
-  color: white;
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 3px;
-  background: #908e76;
-  box-shadow: 10px 10px 10px #a19e83 outset;
+.mainarea:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
 }
-.results{
+.results {
   .brownTheme;
   text-align: center;
   padding: 10px 10px 50px;
-  position: relative;
-  float: right;
+  margin-left: 20px;
+  display: inline-block;
   width: 160px;
+  h3 {
+    color: black;
+  }
 }
-.results h3 {
-  color: black;
-}
-.listQ,.question{
+.listQ,.question {
   margin: 0;
   padding: 10px;
   position: relative;
   float: left;
   width: 1030px;
 }
-.question{
+.brownTheme {
+  font-weight: 600;
+  padding: 10px;
+  color: white;
+  background: #908e76;
+  text-decoration: none;
+  border-radius: 3px;
+  box-shadow: 10px 10px 10px #a19e83 outset;
+}
+.question {
   display: none;
+}
+.picture {
+  text-align: center;
 }

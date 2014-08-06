@@ -14,13 +14,14 @@
         this.$nextQuest = $('.skip');
         this.$goBack = $('.back');
         this.statistics = new Stats(this);
-        this.Persist = new PersistanceModule();
+        this.myPersist = new PersistanceModule();
         this.myRouter = new Router(this);
         //this.myRouter.onURLChange();
     }
 
     QuizzModule.prototype.createQuest = function () {
-        this.Persist.cleanStatistics();
+        //this.myPersist.cleanStatistics();
+
         this.$testList.on("click", { param: this }, function (event) {
             event.data.param.currentTestIndex = parseInt(event.target.getAttribute("data-test-id"), 10);
             event.data.param.myRouter.getStats(event.data.param.currentTestIndex, event.data.param.currentQuestIndex);
@@ -32,11 +33,11 @@
     QuizzModule.prototype.mainPage = function () {
         this.$goBack.on("click", { param: this }, function (event) {
             var self = event.data.param;
-            self.Persist.cleanStatistics();
+            self.myPersist.cleanStatistics();
             self.hideElements('question','listQ');
             self.bringToNought();
-            self.Persist.getStatistics(self.questModule.currentTestIndex, self.questModule.currentQuestIndex, self.questModule.alreadyAnswered, self.questModule.correct, self.questModule.incorrect, self.questModule.alreadyDone);
-            self.getToQuizzApp(self.Persist.currTestIndex, self.Persist.currQuestIndex, self.Persist.alrAnswered, self.Persist.corr, self.Persist.incorr, self.Persist.alrDone);
+            //self.myPersist.getStatistics(self.questModule.currentTestIndex, self.questModule.currentQuestIndex, self.questModule.alreadyAnswered, self.questModule.correct, self.questModule.incorrect, self.questModule.alreadyDone);
+            //self.getToQuizzApp(self.myPersist.currTestIndex, self.myPersist.currQuestIndex, self.myPersist.alrAnswered, self.myPersist.corr, self.myPersist.incorr, self.myPersist.alrDone);
             self.statistics.addInfoToStats(self.currentQuestIndex, '0');
             self.myRouter.getStats(self.currentTestIndex, self.currentQuestIndex);
             //self.myRouter.createURL();
@@ -76,6 +77,7 @@
             this.currentTest = quizData[this.currentTestIndex].questions;
             this.addInfo('testName', quizData[this.currentTestIndex].title);
             this.addInfo('numb', this.currentTest.length);
+            document.getElementById('button').style.visibility = 'visible';
             this.openNextQuest(this.currentTest[0])
         }
     };
@@ -94,20 +96,21 @@
             document.getElementsByClassName('picture')[0].innerHTML = null
         }
         //ответы
-        for (var i = 0; i < elem.answers.length; i++) {
+        this.deleteQuestList();
+        _.each(elem.answers, function(index) {
             var node = document.createElement('li');
-            var textnode = document.createTextNode(elem.answers[i]);
+            var textNode = document.createTextNode(index);
             node.setAttribute('class', 'answers');
-            node.setAttribute('check-answer-id', i + 1);
-            node.appendChild(textnode);
-            document.getElementById('questList').appendChild(node);
-            //node.style.background = '#CAFF70';
-        }
+            node.setAttribute('check-answer-id', elem.answers.indexOf(index) + 1);
+            node.appendChild(textNode);
+            document.getElementById('answList').appendChild(node);
+            //node.style.backgroundColor = '#CAFF70';
+        });
         this.addInfo('testName', quizData[this.currentTestIndex].title);
         this.statistics.addInfoToStats(this.currentQuestIndex + 1, this.currentTest.length);
         this.myRouter.getStats(this.currentTestIndex, this.currentQuestIndex);
         this.myRouter.createURL();
-        this.Persist.getStatistics(this.currentTestIndex, this.currentQuestIndex, this.alreadyAnswered, this.correct, this.incorrect, this.alreadyDone)
+        this.myPersist.getStatistics(this.currentTestIndex, this.currentQuestIndex, this.alreadyAnswered, this.correct, this.incorrect, this.alreadyDone)
     };
 
     QuizzModule.prototype.check = function (myAnswer) {
@@ -149,6 +152,15 @@
                 document.getElementById('button').style.visibility = 'visible';
             }
             if (this.currentTest.length == this.currentQuestIndex) {
+                /*_.each(this.currentTest, function(index) {
+                    var self = this;
+                    if (!self.currentTest[self.currentTest.indexOf(index)].answered) {
+                        self.deleteQuestList();
+                        self.currentQuestIndex = self.currentTest.indexOf(index);
+                        self.openNextQuest(self.currentTest[self.currentQuestIndex]);
+                        break
+                    }
+                });*/
                 for (var newSuperIndex = 0; newSuperIndex < this.currentTest.length; newSuperIndex++) {
                     if (!this.currentTest[newSuperIndex].answered) {
                         this.deleteQuestList();
@@ -188,8 +200,8 @@
         this.$tests[this.alreadyDone[this.alreadyDone.length - 1] - 1].style.listStyleImage = 'url(pics/tick.png)';
         this.$tests[this.alreadyDone[this.alreadyDone.length - 1] - 1].setAttribute('data-test-id', '-1');
         this.bringToNought();
-        this.Persist.getStatistics(this.currentTestIndex, this.currentQuestIndex, this.alreadyAnswered, this.correct, this.incorrect, this.alreadyDone);
-        this.getToQuizzApp(this.Persist.currTestIndex, this.Persist.currQuestIndex, this.Persist.alrAnswered, this.Persist.corr, this.Persist.incorr, this.Persist.alrDone);
+        this.myPersist.getStatistics(this.currentTestIndex, this.currentQuestIndex, this.alreadyAnswered, this.correct, this.incorrect, this.alreadyDone);
+        this.getToQuizzApp(this.myPersist.currTestIndex, this.myPersist.currQuestIndex, this.myPersist.alrAnswered, this.myPersist.corr, this.myPersist.incorr, this.myPersist.alrDone);
         this.statistics.addInfoToStats(this.currentQuestIndex, '0');
         this.myRouter.getStats(this.currentTestIndex, this.currentQuestIndex);
         this.myRouter.cleanURL();
@@ -205,7 +217,7 @@
     };
 
     QuizzModule.prototype.deleteQuestList = function () {
-        var element = document.getElementById("questList");
+        var element = document.getElementById('answList');
         while (element.firstChild) {
             element.removeChild(element.firstChild)
         }

@@ -16,7 +16,6 @@
         this.statistics = new Stats(this);
         this.myPersist = new PersistanceModule();
         this.myRouter = new Router(this);
-        //this.myRouter.onURLChange();
     }
 
     QuizzModule.prototype.createQuest = function () {
@@ -77,7 +76,7 @@
             this.currentTest = quizData[this.currentTestIndex].questions;
             this.addInfo('testName', quizData[this.currentTestIndex].title);
             this.addInfo('numb', this.currentTest.length);
-            document.getElementById('button').style.visibility = 'visible';
+            $('#button')[0].style.visibility = 'visible';
             this.openNextQuest(this.currentTest[0])
         }
     };
@@ -91,9 +90,9 @@
         this.addInfo('currentNumb', numb);
         //картинка
         if (elem.questionImg != null) {
-            document.getElementsByClassName('picture')[0].innerHTML = "<img src='" + elem.questionImg + "' />"
+            $('.picture')[0].innerHTML = "<img src='" + elem.questionImg + "' />"
         } else {
-            document.getElementsByClassName('picture')[0].innerHTML = null
+            $('.picture')[0].innerHTML = null
         }
         //ответы
         this.deleteQuestList();
@@ -103,7 +102,7 @@
             node.setAttribute('class', 'answers');
             node.setAttribute('check-answer-id', elem.answers.indexOf(index) + 1);
             node.appendChild(textNode);
-            document.getElementById('answList').appendChild(node);
+            $('#answList')[0].appendChild(node);
             //node.style.backgroundColor = '#CAFF70';
         });
         this.addInfo('testName', quizData[this.currentTestIndex].title);
@@ -147,9 +146,9 @@
             this.showTheResults()
         } else {
             if (this.alreadyAnswered == this.currentTest.length - 1) {
-                document.getElementById('button').style.visibility = 'hidden';
+                $('#button')[0].style.visibility = 'hidden';
             } else {
-                document.getElementById('button').style.visibility = 'visible';
+                $('#button')[0].style.visibility = 'visible';
             }
             if (this.currentTest.length == this.currentQuestIndex) {
                 /*_.each(this.currentTest, function(index) {
@@ -190,7 +189,7 @@
 
     QuizzModule.prototype.showTheResults = function () {
         this.alreadyDone.push(this.currentTestIndex + 1);
-        var cor = document.getElementsByClassName('correctAn')[0].innerHTML;
+        var cor = $('.correctAn')[0].innerHTML;
         if (cor == this.currentTest.length || cor == this.currentTest.length - 1) {
             alert('Йо-хо-хо, вы успешно прошли тест!\nПравильных: ' + cor + ' из ' + this.currentTest.length + '.\nИдем на главную.')
         } else {
@@ -217,7 +216,7 @@
     };
 
     QuizzModule.prototype.deleteQuestList = function () {
-        var element = document.getElementById('answList');
+        var element = $('#answList')[0];
         while (element.firstChild) {
             element.removeChild(element.firstChild)
         }

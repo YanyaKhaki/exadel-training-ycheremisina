@@ -2,11 +2,13 @@
 <html>
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>ПДД</title>
-    <link rel="shortcut icon" href="pics/favicon.png" type="image/png">
-    <link rel=stylesheet type="text/css" href="css/compiled/style.css">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="pics/favicon.png">
+    <link rel="stylesheet" href="css/compiled/style.css">
     <link href='http://fonts.googleapis.com/css?family=Marck+Script&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <script data-main="scripts/init" src="libraries/require.js"></script>
+
 </head>
 
 <body>
@@ -28,15 +30,14 @@
 
     <div class="question">
         <h3 class="testName">Название теста</h3>
-        <p class="text">Вопрос-вопрос-вопрос?</p>
+        <p class="textQ">Вопрос-вопрос-вопрос?</p>
         <div class="picture"></div>
 
-        <ul class="answersList" id="questList">
+        <ul class="answersList" id="answList">
         </ul><br>
 
         <a href="index.html" id='back' class="brownTheme back">На главную</a>
         <a id="button" class="brownTheme skip">Пропустить</a>
-
     </div>
 
     <div class="results">
@@ -52,18 +53,19 @@
 
 <div></div>
 
-<script src="libraries/underscore.js"></script>
-<script src="libraries/jquery-1.11.1.min.js"></script>
+<!--<script src="libraries/underscore.js"></script>
+<script src="libraries/jquery.js"></script>
+<script src="libraries/handlebars.js"></script>
 <script src="libraries/bootstrap/js/bootstrap.js"></script>
-
+<script src="libraries/jAlert/jAlert-v2.js"></script>
 
 <script src="scripts/new-quizz-data.js"></script>
 <script src="scripts/QuizzModule.js"></script>
 <script src="scripts/stats.js"></script>
 <script src="scripts/QuizzApp.js"></script>
 <script src="scripts/init.js"></script>
-<script src="scripts/persistance.js"></script>
-<script src="scripts/routing.js"></script>
+<script src="scripts/persistence.js"></script>
+<script src="scripts/routing.js"></script>-->
 
 </body>
 
